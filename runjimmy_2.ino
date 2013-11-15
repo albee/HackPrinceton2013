@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include <Servo.h> 
 
-//Range-finding funcion provided by ultrasonic sensor manufacturer.
+//Range-finding function provided by ultrasonic sensor manufacturer
  
 Servo sweeper;
 Servo sound;
@@ -31,7 +31,7 @@ Ultrasonic::Ultrasonic(int pin)
 	_pin = pin;
 }
 
-/*Begin the detection and get the pulse back signal*/
+/*Begin detection and get pulse back signal*/
 void Ultrasonic::DistanceMeasure(void)
 {
         pinMode(_pin, OUTPUT);
@@ -44,7 +44,7 @@ void Ultrasonic::DistanceMeasure(void)
 	duration = pulseIn(_pin,HIGH,38000);
 }
 
-/*The measured distance from the range 0 to 400 Centimeters*/
+/*The measured distance from the range 0 to 400 centimeters*/
 long Ultrasonic::microsecondsToCentimeters(void)
 {
 	return duration/29/2;	
