@@ -34,8 +34,8 @@ Ultrasonic::Ultrasonic(int pin)
 /*Begin the detection and get the pulse back signal*/
 void Ultrasonic::DistanceMeasure(void)
 {
-    pinMode(_pin, OUTPUT);
-	digitalWrite(_pin, LOW);
+        pinMode(_pin, OUTPUT);
+        digitalWrite(_pin, LOW);
 	delayMicroseconds(2);
 	digitalWrite(_pin, HIGH);
 	delayMicroseconds(5);
@@ -66,16 +66,19 @@ void setup()
 void loop()
 {	
 /*First swivel 180 for loop*/
-    for(pos = start_pos; pos < end_pos; pos += 1) 
+  for(pos = start_pos; pos < end_pos; pos += 1) 
   {                
-      ultrasonic.DistanceMeasure();
-      RangeInCentimeters = ultrasonic.microsecondsToCentimeters();
-      if (state == 0) {
-        if (cntr < sens) {
-          sweeper.write(pos); 
-          delay(5);        
-          }
-         if (cntr >= sens) {
+    ultrasonic.DistanceMeasure();
+    RangeInCentimeters = ultrasonic.microsecondsToCentimeters();
+    if (state == 0) 
+    {
+      if (cntr < sens) 
+        {
+        sweeper.write(pos); 
+        delay(5);        
+        }
+       if (cntr >= sens) 
+         {
            sound.write(38);
            digitalWrite(13,HIGH);
            delay(500);
@@ -83,68 +86,85 @@ void loop()
            delay(1000);
            state = 1;
            cntr = 0;
-      }
-          if (0 < RangeInCentimeters && RangeInCentimeters < dist) {
+         }
+        if (0 < RangeInCentimeters && RangeInCentimeters < dist) 
+          {
             cntr = cntr + 1;
-       }
-          if (RangeInCentimeters >= dist) {
-             cntr = 0;}
+          }
+        if (RangeInCentimeters >= dist) 
+          {
+            cntr = 0;
+          }
      }
-       else {
-           if (cntr < sensout) {
-       }
-           if (cntr >= sensout) {
-              digitalWrite(13,LOW);
-              state = 0;
+     else 
+       {
+         if (cntr < sensout) 
+           {
+           }
+         if (cntr >= sensout) 
+           {
+             digitalWrite(13,LOW);
+             state = 0;
              cntr = 0;
-      }
-      if (RangeInCentimeters > dist) {
-         cntr = cntr + 1; 
-       }
-      if (RangeInCentimeters <= dist && !(RangeInCentimeters == 0)) {
-         cntr = 0;}
-     }
-   }
+            }
+         if (RangeInCentimeters > dist) 
+           {
+             cntr = cntr + 1; 
+           }
+         if (RangeInCentimeters <= dist && !(RangeInCentimeters == 0)) 
+           {
+             cntr = 0;}
+           }
+        }
      
 /*Swivel back 180 in opposite direction*/
   for(pos = end_pos; pos > start_pos; pos -= 1) 
-  {    
+    {    
       ultrasonic.DistanceMeasure();
       RangeInCentimeters = ultrasonic.microsecondsToCentimeters();
-       if (state == 0) {
-           if (cntr < sens) {
+      if (state == 0) 
+        {
+          if (cntr < sens) 
+            {
               sweeper.write(pos);
               delay (5);         
-          }
-       if (cntr >= sens) {
-         digitalWrite(13,HIGH);
-         sound.write(38);
-         delay(500);
-         sound.write(65);
-         delay(1000);
-         state = 1;
-         cntr = 0;
-      }
-      if (0 < RangeInCentimeters && RangeInCentimeters < dist) {
-        
-         cntr = cntr + 1; 
-       }
-      if (RangeInCentimeters >= dist) {
-         cntr = 0;}
-       }  
-   else {
-       if (cntr < sensout) {
-         }
-       if (cntr >= sensout) {
-         digitalWrite(13,LOW);
-         state = 0;
-         cntr = 0;
-      }
-      if (RangeInCentimeters > dist) {
+            }
+          if (cntr >= sens) 
+            {
+              digitalWrite(13,HIGH);
+              sound.write(38);
+              delay(500);
+              sound.write(65);
+              delay(1000);
+              state = 1;
+              cntr = 0;
+            }
+      if (0 < RangeInCentimeters && RangeInCentimeters < dist) 
+        {
           cntr = cntr + 1; 
-       }
-    if (RangeInCentimeters <= dist && !(RangeInCentimeters == 0)) {
-         cntr = 0;}
-     }
-  }  
-}
+        }
+      if (RangeInCentimeters >= dist) 
+        {
+          cntr = 0;}
+         }  
+  else 
+    {
+      if (cntr < sensout) 
+        {
+        }
+      if (cntr >= sensout) 
+        {
+          digitalWrite(13,LOW);
+          state = 0;
+          cntr = 0;
+        }
+      if (RangeInCentimeters > dist) 
+        {
+          cntr = cntr + 1; 
+        }
+      if (RangeInCentimeters <= dist && !(RangeInCentimeters == 0)) 
+        {
+          cntr = 0;}
+        }
+     }  
+  }
